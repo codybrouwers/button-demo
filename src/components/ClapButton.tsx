@@ -1,4 +1,4 @@
-// Copied and modified from https://github.com/JonathanDn/mediumclap
+// Copied and modified from https://github.com/JonathanDn/mediumclap / https://jsfiddle.net/urft14zr/425/
 import { useRef, useState } from "react";
 import { faHandPaper, faHandPeace } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
