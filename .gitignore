@@ -1,0 +1,25 @@
+# Environment Configuration
+.env*.local
+
+# Dependency directory
+node_modules
+
+# Ignore Apple macOS Desktop Services Store
+.DS_Store
+
+# Logs
+logs
+*.log
+
+# next build output
+.next/
+dist
+
+# TypeScript cached build info
+*.tsbuildinfo
+
+# ESlint cache
+.eslintcache
+
+# Vercel config
+.vercel

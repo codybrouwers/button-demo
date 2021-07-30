@@ -1,0 +1,5 @@
+node_modules
+**/.next
+*.hbs
+**/*.min.*
+**/__generated__/**
