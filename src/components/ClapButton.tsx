@@ -105,9 +105,9 @@ export function ClapButton({ clickCount, incrementClickCount }: IProps) {
 
   return (
     <div className={styles.canvas}>
-      <div className={styles.totalCounter} ref={totalCountContainer}>
+      {/* <div className={styles.totalCounter} ref={totalCountContainer}>
         {clickCount}
-      </div>
+      </div> */}
       <div className={styles.clickCounter} ref={clickCountContainer}>
         <span className={styles.counter}>+{clickCount}</span>
       </div>
