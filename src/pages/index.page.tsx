@@ -17,7 +17,7 @@ export default function Home() {
     setData((previousData) => {
       return [...previousData, { timestamp: new Date(), count }];
     });
-  }, 200);
+  }, 100);
 
   const incrementClickCount = () => {
     setClickCount((previousCount) => {
