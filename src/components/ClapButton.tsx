@@ -6,6 +6,11 @@ import styles from "./ClapButton.module.scss";
 
 // == Types ================================================================
 
+interface IProps {
+  clickCount: number;
+  incrementClickCount: () => void;
+}
+
 // == Constants ============================================================
 
 const MIN_DEGREE = 1;
@@ -21,14 +26,13 @@ function getRandomInt(min: number, max: number): number {
 
 // == Component ============================================================
 
-export function ClapButton() {
-  const [clickCount, setClickCount] = useState(0);
+export function ClapButton({ clickCount, incrementClickCount }: IProps) {
   const [icon, toggleIcon] = useState(faHandPaper);
   const clickCountContainer = useRef<HTMLDivElement | null>(null);
   const totalCountContainer = useRef<HTMLDivElement | null>(null);
   const clapButton = useRef<HTMLDivElement | null>(null);
   const confettiRefs = useRef<Record<number, HTMLDivElement | null>>({});
-  const timeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   function runAnimationCycle(element: HTMLDivElement | null, className: string) {
     if (!element) return;
@@ -72,10 +76,7 @@ export function ClapButton() {
   const onClick = () => {
     if (timeoutRef.current) clearTimeout(timeoutRef.current);
 
-    setClickCount((previousCount) => {
-      previousCount += 1;
-      return previousCount;
-    });
+    incrementClickCount();
 
     toggleIcon(faHandPeace);
     timeoutRef.current = setTimeout(() => {
