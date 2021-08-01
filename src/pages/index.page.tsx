@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ClapButton, BackgroundScoreChart, IScore, INITIAL_SCORE_DATA } from "components";
 import { useDebounceFunction, useTrackAnalytics } from "hooks";
 
@@ -19,13 +19,18 @@ export default function Home() {
     });
   }, 100);
 
+  useEffect(() => {
+    if (!clickCount) return;
+
+    debouncedSetData(clickCount);
+  }, [clickCount, debouncedSetData]);
+
   const incrementClickCount = () => {
     setClickCount((previousCount) => {
       previousCount += 1;
-      debouncedSetData(previousCount);
-      trackAnalytics({ event: "click", meta: { count: previousCount } });
       return previousCount;
     });
+    trackAnalytics.click.increment();
   };
 
   return (

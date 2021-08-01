@@ -1,28 +1,33 @@
 import Redis from "ioredis";
 import { NextApiRequest, NextApiResponse } from "next";
+import { IS_DEVELOPMENT } from "config";
 import { maybeFail } from "utils";
 
 // == Types ================================================================
 
-type TEventsData =
-  | { event: "click"; meta: { count: string }; timestamp: string }
-  | { event: "login"; meta: { userId: string }; timestamp: string };
+export type TEventsData =
+  | { event: "clicks"; timestamp: string; meta: { data: Record<string, number> } }
+  // Example events
+  | { event: "login"; timestamp: string; meta: { userId: string } };
 
 // == Constants ============================================================
 
 const client = new Redis(process.env.REDIS_URL);
 
-const SUCCESS_PROBABILITY = 0.8;
+const SUCCESS_PROBABILITY = IS_DEVELOPMENT ? 1 : 0.8;
 
 // == Functions ============================================================
 
-async function saveClickEvent({ event, meta, timestamp }: TEventsData) {
+async function saveClickEvents({ event, meta }: TEventsData) {
   try {
-    if (event !== "click" || !("count" in meta) || !timestamp) throw new Error("Invalid click event data");
-    const count = parseFloat(meta.count);
-    if (typeof count !== "number") throw new Error("Invalid click event count");
+    if (event !== "clicks" || !("data" in meta)) throw new Error("Invalid clicks event data");
 
-    await client.zadd("analytics:clicks", count, `${timestamp.substring(0, 16)}`);
+    // Batch calls to Upstash
+    const pipeline = client.pipeline();
+    for (const [timestamp, count] of Object.entries(meta.data)) {
+      pipeline.zincrby("analytics:clicks", count, timestamp);
+    }
+    await pipeline.exec();
   } catch (error) {
     console.error("Error saving click event", error);
   }
@@ -34,18 +39,17 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   try {
     const eventData = JSON.parse(req.body) as TEventsData;
     const { timestamp, event } = eventData;
-    const saveEvent = async () => {
+    await maybeFail(async () => {
       if (typeof timestamp !== "string" || !Date.parse(timestamp)) throw new Error("Invalid timestamp");
 
       switch (event) {
-        case "click":
-          await saveClickEvent(eventData);
+        case "clicks":
+          await saveClickEvents(eventData);
           break;
         default:
           throw new Error("Invalid analytics event name");
       }
-    };
-    await maybeFail(saveEvent, SUCCESS_PROBABILITY);
+    }, SUCCESS_PROBABILITY);
     res.status(200).end();
   } catch (error) {
     console.log(error);

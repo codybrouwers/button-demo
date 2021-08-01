@@ -1,3 +1,6 @@
+import { useRef } from "react";
+import { IS_DEVELOPMENT } from "config";
+import type { TEventsData } from "pages/api/analytics/track.api";
 import { fetchWithRetry } from "utils";
 import { useDebounceFunction } from "./useDebounceFunction";
 
@@ -5,14 +8,22 @@ import { useDebounceFunction } from "./useDebounceFunction";
 
 // == Constants ============================================================
 
+const DEBOUNCE_TIME = IS_DEVELOPMENT ? 2500 : 2500;
+
 // == Functions ============================================================
+
+function timestampExcludingSeconds() {
+  return new Date().toISOString().substring(0, 16);
+}
 
 // == Exports ==============================================================
 
 export function useTrackAnalytics() {
-  return useDebounceFunction(async ({ event, meta }: { event: string; meta: $JSONSerializable }) => {
+  const analyticsData = useRef<Record<string, Map<string, number>>>({ clicks: new Map() });
+  const analyticsCall = useDebounceFunction(async ({ event, timestamp, meta }: TEventsData) => {
     try {
-      const body = JSON.stringify({ event, meta, timestamp: new Date().toISOString() });
+      const body = JSON.stringify({ event, timestamp, meta });
+      analyticsData.current[event].clear();
       await fetchWithRetry("/api/analytics/track", {
         retryAttempts: 3,
         method: "POST",
@@ -25,5 +36,22 @@ export function useTrackAnalytics() {
         error,
       });
     }
-  }, 2500);
+  }, DEBOUNCE_TIME);
+
+  return {
+    click: {
+      increment() {
+        const timestamp = timestampExcludingSeconds();
+        const clickData = analyticsData.current.clicks;
+        const currentCount = clickData.get(timestamp) ?? 0;
+        clickData.set(timestamp, currentCount + 1);
+
+        analyticsCall({
+          event: "clicks",
+          timestamp: new Date().toISOString(),
+          meta: { data: Object.fromEntries(clickData) },
+        });
+      },
+    },
+  };
 }
