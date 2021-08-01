@@ -20,6 +20,7 @@ module.exports = {
     "plugin:promise/recommended",
     "plugin:import/recommended",
     "plugin:import/typescript",
+    "next",
     "prettier",
   ],
   env: {
@@ -209,6 +210,7 @@ module.exports = {
     // == eslint-plugin-import ===============================================================
     "import/no-extraneous-dependencies": "off",
     "import/prefer-default-export": "off",
+    "import/no-anonymous-default-export": "off",
     "import/no-absolute-path": "error",
     "import/no-unresolved": "error",
     "import/no-default-export": "error",

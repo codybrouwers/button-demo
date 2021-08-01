@@ -6,7 +6,7 @@
     "dev": "yarn next dev --port 4003",
     "start": "next build && next start --port 4003",
     "type-check": "yarn tsc",
-    "lint": "yarn eslint 'src/**/*.{ts,tsx}' --fix --cache"
+    "lint": "yarn next lint --fix --cache"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "1.2.35",
@@ -27,6 +27,7 @@
     "@typescript-eslint/parser": "4.28.5",
     "eslint": "7.32.0",
     "eslint-config-airbnb": "18.2.1",
+    "eslint-config-next": "^11.0.1",
     "eslint-config-prettier": "8.3.0",
     "eslint-import-resolver-typescript": "2.4.0",
     "eslint-plugin-import": "2.23.4",
