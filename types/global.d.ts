@@ -10,6 +10,17 @@ declare global {
   /** Typescript cannot express the proper type currently */
   type $Unexpressable = any;
 
+  /** The values that can be stringified into JSON */
+  type $JSONSerializable =
+    | null
+    | string
+    | boolean
+    | number
+    | Array<$JSONSerializable>
+    | Partial<{
+        [key: string]: $JSONSerializable | undefined;
+      }>;
+
   /** Return type from Object.entries.
    * Note: Must only be used for Exact types, otherwise is not type safe!
    * Explanations:
