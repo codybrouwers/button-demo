@@ -46,7 +46,6 @@ module.exports = {
       files: ["*.js"],
       rules: {
         "@typescript-eslint/no-var-requires": "off",
-        "no-console": "off",
       },
     },
     {
@@ -80,7 +79,7 @@ module.exports = {
     "prefer-const": "error",
     "no-void": ["error", { allowAsStatement: true }],
     eqeqeq: "error",
-    "no-console": "error",
+    "no-console": "off",
     "no-else-return": "error",
     "no-unexpected-multiline": "error",
     "object-shorthand": ["error", "always"],
