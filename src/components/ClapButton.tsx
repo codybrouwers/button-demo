@@ -117,8 +117,7 @@ export function ClapButton({ clickCount, incrementClickCount }: IProps) {
         role="button"
         tabIndex={0}
         onClick={onClick}
-        onFocus={() => null}
-        onKeyDown={onClick}
+        onKeyDown={({ key }) => key === "32" && onClick()}
       >
         <FontAwesomeIcon className={styles.clapIcon} icon={icon} />
       </div>
