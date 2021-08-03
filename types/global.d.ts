@@ -37,4 +37,9 @@ declare global {
    * Unwrap promise value
    */
   type TAwaited<T> = T extends PromiseLike<infer U> ? U : T;
+
+  interface IUser {
+    id: string;
+    name: string;
+  }
 }
