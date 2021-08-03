@@ -6,9 +6,18 @@ import { maybeFail } from "utils";
 // == Types ================================================================
 
 export type TEventsData =
-  | { event: "clicks"; timestamp: string; meta: { data: Record<string, number> } }
+  | {
+      event: "clicks";
+      timestamp: string;
+      meta: { data: Record<string, number>; user: IUser };
+    }
   // Example events
-  | { event: "login"; timestamp: string; meta: { userId: string } };
+  | { event: "join"; timestamp: string; meta: { user: IUser } };
+
+export interface ISavedClickRecord {
+  count: number;
+  user: IUser;
+}
 
 // == Constants ============================================================
 
@@ -22,10 +31,14 @@ async function saveClickEvents({ event, meta }: TEventsData) {
   try {
     if (event !== "clicks" || !("data" in meta)) throw new Error("Invalid clicks event data");
 
+    const { data, user } = meta;
+    const entries = Object.entries(data);
     // Batch calls to Upstash
     const pipeline = client.pipeline();
-    for (const [timestamp, count] of Object.entries(meta.data)) {
-      pipeline.zincrby("analytics:clicks", count, timestamp);
+    for (const [timestamp, count] of entries) {
+      pipeline.hincrby("games:total-clicks", timestamp, count);
+      const clickEvent: ISavedClickRecord = { count, user };
+      pipeline.zadd("games:clicks", 0, `${timestamp}::${JSON.stringify(clickEvent)}`);
     }
     await pipeline.exec();
   } catch (error) {
@@ -47,7 +60,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
           await saveClickEvents(eventData);
           break;
         default:
-          throw new Error("Invalid analytics event name");
+          throw new Error("Invalid event name");
       }
     }, SUCCESS_PROBABILITY);
     res.status(200).end();
