@@ -9,7 +9,7 @@ import { useDebounceFunction } from "hooks/useDebounceFunction";
 // == Exports ==============================================================
 
 export function useChartData(user: IUser, clickCount: number) {
-  const [chartData, setChartData] = useState<TChartData>([]);
+  const [chartData, setChartData] = useState<TChartData[]>([]);
 
   useEffect(() => {
     // Set initial chart data after user is loaded

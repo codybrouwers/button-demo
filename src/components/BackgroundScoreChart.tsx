@@ -9,10 +9,10 @@ interface IScore {
   user: IUser;
 }
 
-export type TChartData = UserSerie<IScore>[];
+export type TChartData = UserSerie<IScore>;
 
 interface IProps {
-  data: TChartData;
+  data: TChartData[];
 }
 
 // == Constants ============================================================
@@ -64,6 +64,7 @@ export function BackgroundScoreChart({ data }: IProps) {
     [data]
   );
 
+  if (!data.length) return null;
   return (
     <div style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", zIndex: 0 }}>
       <Chart options={chartOptions} />

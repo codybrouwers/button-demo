@@ -33,7 +33,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     for (const clickEvent of clickEvents) {
       try {
         const [eventTime, json] = clickEvent.split("::");
-        console.log("--clickEvent", { eventTime, json });
         const { count, user } = JSON.parse(json) as Partial<ISavedClickRecord>;
         if (user?.id) {
           totalClicks[user.id] ||= 0;
