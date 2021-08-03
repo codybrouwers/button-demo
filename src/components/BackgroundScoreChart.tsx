@@ -1,21 +1,27 @@
 import { useMemo } from "react";
-import { AxisOptions, Chart, ChartOptions } from "react-charts";
+import { AxisOptions, Chart, ChartOptions, UserSerie } from "react-charts";
 
 // == Types ================================================================
 
-interface IProps {
-  data: IScore[];
-}
-
-export interface IScore {
+interface IScore {
   timestamp: Date;
   count: number;
+  user: IUser;
+}
+
+export type TChartData = UserSerie<IScore>[];
+
+interface IProps {
+  data: TChartData;
 }
 
 // == Constants ============================================================
 
 const primaryAxis: AxisOptions<IScore> = {
-  getValue: (datum) => datum.timestamp,
+  getValue: (datum) => new Date(datum.timestamp),
+  formatters: {
+    tooltip: (value) => <span>{value?.toLocaleTimeString() ?? ""}</span>,
+  },
   scaleType: "localTime",
   showGrid: false,
   show: false,
@@ -32,13 +38,6 @@ const secondaryAxes: AxisOptions<IScore>[] = [
   },
 ];
 
-export const INITIAL_SCORE_DATA = [
-  {
-    timestamp: new Date(),
-    count: 0,
-  },
-];
-
 // == Functions ============================================================
 
 // == Component ============================================================
@@ -46,11 +45,11 @@ export const INITIAL_SCORE_DATA = [
 export function BackgroundScoreChart({ data }: IProps) {
   const chartOptions: ChartOptions<IScore> = useMemo(
     () => ({
-      data: [{ data }],
+      data,
       primaryAxis,
       secondaryAxes,
       dark: false,
-      tooltip: false,
+      tooltip: { groupingMode: "single" },
       primaryCursor: {
         show: false,
         showLine: false,
@@ -66,7 +65,7 @@ export function BackgroundScoreChart({ data }: IProps) {
   );
 
   return (
-    <div style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%" }}>
+    <div style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", zIndex: 0 }}>
       <Chart options={chartOptions} />
     </div>
   );
