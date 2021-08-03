@@ -1,2 +1,3 @@
 export * from "./useDebounceFunction";
-export * from "./useTrackAnalytics";
+export * from "./useTrackClicks";
+export * from "./useToggle";
