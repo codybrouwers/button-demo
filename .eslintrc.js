@@ -176,6 +176,7 @@ module.exports = {
     "react/state-in-constructor": "off",
     "react/jsx-filename-extension": "off",
     "react/jsx-one-expression-per-line": "off",
+    "react/destructuring-assignment": "off",
     "react/display-name": "off",
     "react/jsx-props-no-spreading": "off",
     "react/no-multi-comp": "off",
@@ -198,13 +199,6 @@ module.exports = {
       {
         namedComponents: "function-declaration",
         unnamedComponents: "arrow-function",
-      },
-    ],
-    "react/destructuring-assignment": [
-      "error",
-      "always",
-      {
-        ignoreClassFields: true,
       },
     ],
     // == eslint-plugin-import ===============================================================
