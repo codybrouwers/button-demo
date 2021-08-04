@@ -29,12 +29,11 @@ function getRandomInt(min: number, max: number): number {
 export function ClapButton({ clickCount, incrementClickCount }: IProps) {
   const [icon, toggleIcon] = useState(faHandPaper);
   const clickCountContainer = useRef<HTMLDivElement | null>(null);
-  const totalCountContainer = useRef<HTMLDivElement | null>(null);
   const clapButton = useRef<HTMLDivElement | null>(null);
   const confettiRefs = useRef<Record<number, HTMLDivElement | null>>({});
   const timeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  function runAnimationCycle(element: HTMLDivElement | null, className: string) {
+  function toggleAnimationClass(element: HTMLDivElement | null, className: string) {
     if (!element) return;
 
     if (!element.classList.contains(className)) {
@@ -84,12 +83,11 @@ export function ClapButton({ clickCount, incrementClickCount }: IProps) {
     }, DEFAULT_DURATION);
 
     if (clickCountContainer.current?.classList.contains(styles.firstActive)) {
-      runAnimationCycle(clickCountContainer.current, styles.active);
+      toggleAnimationClass(clickCountContainer.current, styles.active);
     } else {
-      runAnimationCycle(clickCountContainer.current, styles.firstActive);
+      toggleAnimationClass(clickCountContainer.current, styles.firstActive);
     }
-    runAnimationCycle(clapButton.current, styles.scale);
-    runAnimationCycle(totalCountContainer.current, styles.fader);
+    toggleAnimationClass(clapButton.current, styles.scale);
 
     const confetti = confettiRefs.current[0];
     const confetti1 = confettiRefs.current[1];
@@ -105,9 +103,6 @@ export function ClapButton({ clickCount, incrementClickCount }: IProps) {
 
   return (
     <div className={styles.canvas}>
-      {/* <div className={styles.totalCounter} ref={totalCountContainer}>
-        {clickCount}
-      </div> */}
       <div className={styles.clickCounter} ref={clickCountContainer}>
         <span className={styles.counter}>+{clickCount}</span>
       </div>
