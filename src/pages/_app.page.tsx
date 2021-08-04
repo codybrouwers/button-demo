@@ -1,5 +1,6 @@
+import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AppProps } from "next/app";
-import "./styles.css";
+// import "./styles.css";
 
 // == Types ================================================================
 
@@ -8,7 +9,12 @@ import "./styles.css";
 // == Component ============================================================
 
 export default function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <GeistProvider>
+      <CssBaseline />
+      <Component {...pageProps} />
+    </GeistProvider>
+  );
 }
 
 // == Styles ===============================================================

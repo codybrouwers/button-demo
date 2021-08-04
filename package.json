@@ -12,6 +12,8 @@
     "@fortawesome/fontawesome-svg-core": "1.2.35",
     "@fortawesome/free-regular-svg-icons": "5.15.3",
     "@fortawesome/react-fontawesome": "0.1.14",
+    "@geist-ui/react": "^2.2.0-rc.8",
+    "@geist-ui/react-icons": "^1.0.1",
     "ioredis": "4.27.6",
     "nanoid": "^3.1.23",
     "next": "11.0.1",

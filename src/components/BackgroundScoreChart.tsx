@@ -65,9 +65,5 @@ export function BackgroundScoreChart({ data }: IProps) {
   );
 
   if (!data.length) return null;
-  return (
-    <div style={{ position: "absolute", left: 0, top: 0, width: "100%", height: "100%", zIndex: 0 }}>
-      <Chart options={chartOptions} />
-    </div>
-  );
+  return <Chart options={chartOptions} />;
 }
