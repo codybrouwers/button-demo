@@ -1,4 +1,5 @@
 import { useMemo } from "react";
+import { useTheme } from "@geist-ui/react";
 import { AxisOptions, Chart, ChartOptions, UserSerie } from "react-charts";
 
 // == Types ================================================================
@@ -43,6 +44,7 @@ const secondaryAxes: AxisOptions<IScore>[] = [
 // == Component ============================================================
 
 export function BackgroundScoreChart({ data }: IProps) {
+  const theme = useTheme();
   const chartOptions: ChartOptions<IScore> = useMemo(
     () => ({
       data,
@@ -50,6 +52,7 @@ export function BackgroundScoreChart({ data }: IProps) {
       secondaryAxes,
       dark: false,
       tooltip: { groupingMode: "single" },
+      defaultColors: [theme.type === "light" ? "black" : "white"],
       primaryCursor: {
         show: false,
         showLine: false,
@@ -61,7 +64,7 @@ export function BackgroundScoreChart({ data }: IProps) {
         showLabel: false,
       },
     }),
-    [data]
+    [data, theme.type]
   );
 
   if (!data.length) return null;
