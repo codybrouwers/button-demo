@@ -1,6 +1,7 @@
+import { useState } from "react";
 import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AppProps } from "next/app";
-// import "./styles.css";
+import { ThemeSwitch, TTheme } from "components";
 
 // == Types ================================================================
 
@@ -9,9 +10,12 @@ import { AppProps } from "next/app";
 // == Component ============================================================
 
 export default function MyApp({ Component, pageProps }: AppProps) {
+  const [theme, setTheme] = useState<TTheme>("light");
+
   return (
-    <GeistProvider>
+    <GeistProvider themeType={theme}>
       <CssBaseline />
+      <ThemeSwitch setTheme={setTheme} theme={theme} />
       <Component {...pageProps} />
     </GeistProvider>
   );
