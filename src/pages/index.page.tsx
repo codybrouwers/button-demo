@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   return (
-    <Page height="1vh" width="100%">
+    <Page height="1vh" style={{ overflow: "hidden" }} width="100%">
       <Page.Content>
         <Grid.Container alignItems="center" direction="column" justify="center" width="100%">
           <ClapButton clickCount={clickCount} incrementClickCount={incrementClickCount} />
