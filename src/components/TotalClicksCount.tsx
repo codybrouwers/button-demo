@@ -20,7 +20,7 @@ const DEBOUNCE_DURATION = IS_DEVELOPMENT ? 500 : 250;
 export function TotalClicksCount() {
   const [isLoading, toggleIsLoading] = useToggle(false);
   const [timeFrame, setTimeFrame] = useState<ITimeFrame>({ duration: 5, interval: "minutes" });
-  const [clickCount, setClickCount] = useState(0);
+  const [clickCount, setClickCount] = useState<number | null>(null);
 
   const getTotalClicks = useDebounceFunction(async (debouncedTimeFrame: ITimeFrame) => {
     toggleIsLoading(true);
@@ -54,9 +54,9 @@ export function TotalClicksCount() {
   return (
     <Card style={{ zIndex: 1, opacity: 0.9 }}>
       <Grid.Container alignItems="center" direction="column" justify="center" style={{ zIndex: 1 }}>
-        {isLoading ? (
+        {isLoading || clickCount === null ? (
           <Badge scale={3} style={{ position: "relative" }}>
-            <span style={{ visibility: "hidden" }}>{clickCount}</span>
+            <span style={{ visibility: "hidden" }}>{clickCount ?? 0}</span>
             <Loading style={{ position: "absolute", left: 0, top: 0 }} type="success" />
           </Badge>
         ) : (
