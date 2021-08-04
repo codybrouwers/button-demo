@@ -18,15 +18,16 @@ const USER_KEY = "user";
 
 export function WelcomeModal({ setUser }: IProps) {
   const [name, setName] = useState("");
-  const [isModalVisible, toggleIsModalVisible] = useToggle(true);
+  const [isModalVisible, toggleIsModalVisible] = useToggle(false);
 
   useEffect(() => {
     const existingUserJson = window.localStorage.getItem(USER_KEY);
     if (existingUserJson) {
       const existingUser = JSON.parse(existingUserJson);
       setUser(existingUser);
-      toggleIsModalVisible(false);
+      return;
     }
+    toggleIsModalVisible(true);
   }, [setUser, toggleIsModalVisible]);
 
   const onSubmit = () => {

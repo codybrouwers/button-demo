@@ -27,7 +27,7 @@ export default function Home() {
       <div style={{ display: "flex", justifyContent: "center", alignItems: "center" }}>
         <ClapButton clickCount={clickCount} incrementClickCount={incrementClickCount} />
       </div>
-      {!!user.id && <BackgroundScoreChart data={chartData} />}
+      <BackgroundScoreChart data={chartData} />
       <WelcomeModal setUser={setUser} />
     </>
   );
