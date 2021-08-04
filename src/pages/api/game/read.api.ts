@@ -1,8 +1,19 @@
 import Redis from "ioredis";
 import { NextApiRequest, NextApiResponse } from "next";
+import { getPastDate } from "utils";
 import { ISavedClickRecord } from "./write.api";
 
 // == Types ================================================================
+
+export interface IReadResponse {
+  timestamp: string;
+  totalClicks: ITotalClicks;
+}
+
+interface ITotalClicks {
+  total: number;
+  [id: string]: number;
+}
 
 // == Constants ============================================================
 
@@ -11,7 +22,8 @@ const client = new Redis(process.env.REDIS_URL);
 // == Functions ============================================================
 
 function parseTimestampParam(param: string | string[]): Date {
-  if (typeof param !== "string") return new Date();
+  // Default to 10 minutes ago
+  if (typeof param !== "string") return getPastDate({ interval: "minutes", duration: 10 });
 
   const timestampNumber = Date.parse(param);
   if (Number.isNaN(timestampNumber)) {
@@ -27,33 +39,28 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const timestampParam = req.query.timestamp;
     const timestamp = parseTimestampParam(timestampParam);
 
-    const clickEvents = await client.zrangebylex("games:clicks", `[${timestamp.getTime()}`, "+");
-    const formattedClickEvents = [];
-    const totalClicks: Record<string, number> = { total: 0 };
-    for (const clickEvent of clickEvents) {
+    const clickEventsResponse = await client.zrangebylex("games:clicks", `[${timestamp.getTime()}`, "+");
+    const totalClicks: ITotalClicks = { total: 0 };
+    for (const clickEvent of clickEventsResponse) {
       try {
-        const [eventTime, json] = clickEvent.split("::");
+        const [, json] = clickEvent.split("::");
         const { count, user } = JSON.parse(json) as Partial<ISavedClickRecord>;
-        if (user?.id) {
+        if (user?.id && count) {
           totalClicks[user.id] ||= 0;
           totalClicks[user.id] += count ?? 0;
+
+          totalClicks.total += count ?? 0;
         }
-        totalClicks.total += count ?? 0;
-        formattedClickEvents.push({
-          user,
-          count,
-          timestamp: eventTime,
-        });
       } catch (error) {
         console.warn(error);
       }
     }
 
-    res.status(200).json({
-      timestamp,
+    const response: IReadResponse = {
+      timestamp: timestamp.toISOString(),
       totalClicks,
-      formattedClickEvents,
-    });
+    };
+    res.status(200).json(response);
   } catch (error) {
     console.log(error);
     res.status(500).end();
