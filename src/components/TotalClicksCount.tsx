@@ -13,6 +13,9 @@ import { fetchWithRetry, getPastDate, ITimeFrame } from "utils";
 const INTERVAL_DURATION = IS_DEVELOPMENT ? 300_000 : 5_000;
 const DEBOUNCE_DURATION = IS_DEVELOPMENT ? 500 : 250;
 
+const MINIMUM_DURATION = 0;
+const MAXIMUM_DURATION = 100;
+
 // == Functions ============================================================
 
 // == Component ============================================================
@@ -47,7 +50,9 @@ export function TotalClicksCount() {
 
   const updateDuration = (value: number) => {
     setTimeFrame((previousTimeFrame) => {
-      return { ...previousTimeFrame, duration: previousTimeFrame.duration + value };
+      const duration = previousTimeFrame.duration + value;
+      if (duration < MINIMUM_DURATION || duration > MAXIMUM_DURATION) return previousTimeFrame;
+      return { ...previousTimeFrame, duration };
     });
   };
 
