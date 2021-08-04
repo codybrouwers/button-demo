@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AppProps } from "next/app";
-import { ThemeSwitch, TTheme } from "components";
+import { TTheme, Header } from "components";
 
 // == Types ================================================================
 
@@ -26,7 +26,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   return (
     <GeistProvider themeType={theme}>
       <CssBaseline />
-      <ThemeSwitch setTheme={saveTheme} theme={theme} />
+      <Header setTheme={saveTheme} theme={theme} />
       <Component {...pageProps} />
     </GeistProvider>
   );
