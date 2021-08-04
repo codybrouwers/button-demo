@@ -11,11 +11,6 @@ import { useDebounceFunction } from "hooks/useDebounceFunction";
 export function useChartData(user: IUser, clickCount: number) {
   const [chartData, setChartData] = useState<TChartData[]>([]);
 
-  useEffect(() => {
-    // Set initial chart data after user is loaded
-    setChartData([{ id: user.id, label: user.name, data: [{ timestamp: new Date(), count: 0, user }] }]);
-  }, [user]);
-
   const debouncedSetData = useDebounceFunction((data: { count: number; user: IUser }) => {
     setChartData((previousChartData) => {
       return previousChartData.map((chart) => {
@@ -28,6 +23,13 @@ export function useChartData(user: IUser, clickCount: number) {
       });
     });
   }, 100);
+
+  useEffect(() => {
+    if (!user?.id) return;
+
+    // Set initial chart data after user is loaded
+    setChartData([{ id: user.id, label: user.name, data: [{ timestamp: new Date(), count: 0, user }] }]);
+  }, [user]);
 
   useEffect(() => {
     if (!clickCount) return;
