@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { Text, Select, Card, Grid, Badge, Button, Loading } from "@geist-ui/react";
 import { PlusCircle, MinusCircle } from "@geist-ui/react-icons";
 import { IS_DEVELOPMENT } from "config";
-import { useDebounceFunction, useToggle } from "hooks";
+import { useDebounceFunction, useToggle, useWindowFocus } from "hooks";
 import { IReadResponse } from "pages/api/game/read.api";
 import { fetchWithRetry, getPastDate, ITimeFrame } from "utils";
 
@@ -21,6 +21,8 @@ const MAXIMUM_DURATION = 100;
 // == Component ============================================================
 
 export function TotalClicksCount() {
+  const isFocused = useWindowFocus();
+
   const [isLoading, toggleIsLoading] = useToggle(false);
   const [timeFrame, setTimeFrame] = useState<ITimeFrame>({ duration: 5, interval: "minutes" });
   const [clickCount, setClickCount] = useState<number | null>(null);
@@ -38,7 +40,7 @@ export function TotalClicksCount() {
   }, DEBOUNCE_DURATION);
 
   useEffect(() => {
-    if (!timeFrame.duration) return undefined;
+    if (!isFocused || !timeFrame.duration) return undefined;
 
     void getTotalClicks(timeFrame);
 
@@ -46,7 +48,7 @@ export function TotalClicksCount() {
       void getTotalClicks(timeFrame);
     }, INTERVAL_DURATION);
     return () => clearInterval(interval);
-  }, [getTotalClicks, timeFrame]);
+  }, [getTotalClicks, timeFrame, isFocused]);
 
   const updateDuration = (value: number) => {
     setTimeFrame((previousTimeFrame) => {
