@@ -5,6 +5,8 @@ declare global {
 
   /** Fix this type, preferably before accepting the PR */
   type $FixMe = unknown;
+  /** This `unknown` is intentional and never has to be fixed */
+  type $IntentionalUnknown = unknown;
   /** This `any` is intentional and never has to be fixed */
   type $IntentionalAny = any;
   /** Typescript cannot express the proper type currently */
