@@ -52,7 +52,7 @@ export function BackgroundScoreChart({ data }: IProps) {
       secondaryAxes,
       dark: false,
       tooltip: { groupingMode: "single" },
-      defaultColors: [theme.type === "light" ? "black" : "white"],
+      defaultColors: [theme.palette.foreground],
       primaryCursor: {
         show: false,
         showLine: false,
@@ -64,7 +64,7 @@ export function BackgroundScoreChart({ data }: IProps) {
         showLabel: false,
       },
     }),
-    [data, theme.type]
+    [data, theme.palette]
   );
 
   if (!data.length) return null;
