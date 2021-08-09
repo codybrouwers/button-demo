@@ -1,4 +1,4 @@
-import { useLayoutEffect } from "react";
+import { useEffect } from "react";
 import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AppProps } from "next/app";
 import { TTheme, Header } from "components";
@@ -17,7 +17,7 @@ export default function MyApp({ Component, pageProps }: AppProps) {
     window.localStorage.setItem("theme", updatedTheme);
   });
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     const savedTheme = window.localStorage.getItem("theme");
     if (!savedTheme) return;
 
