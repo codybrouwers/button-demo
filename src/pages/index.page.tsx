@@ -9,6 +9,13 @@ import { useChartData } from "hooks/useChartData";
 
 // == Constants ============================================================
 
+const ViewFilesButton = dynamic<Record<string, never>>(
+  () => import("@components/Files/ViewFilesButton").then((module) => module.ViewFilesButton),
+  {
+    ssr: false,
+  }
+);
+
 // == Functions ============================================================
 
 // == Component ============================================================
