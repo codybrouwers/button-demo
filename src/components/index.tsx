@@ -4,3 +4,4 @@ export * from "./WelcomeModal";
 export * from "./TotalClicksCount";
 export * from "./ThemeSwitch";
 export * from "./Header";
+export * from "./Files/ViewFilesButton";
