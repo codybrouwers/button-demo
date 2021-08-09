@@ -40,6 +40,31 @@ declare global {
    */
   type TAwaited<T> = T extends PromiseLike<infer U> ? U : T;
 
+  // File Types
+
+  /**
+   * A node in the file tree with files as a record for easy search
+   */
+  interface IFileTreeMapNode {
+    type: "directory" | "file";
+    id: string;
+    name: string;
+    files: Record<string, IFileTreeMapNode> | null;
+    icon: string | null;
+    url: string;
+    styles: { dark?: string; light?: string };
+  }
+  type TFileTreeMap = Record<string, IFileTreeMapNode>;
+
+  /**
+   * A node in the file tree with files as an array for easy consumption
+   */
+  type TFileTreeNode = {
+    files: TTreeNode[] | null;
+  } & Omit<IFileTreeMapNode, "files">;
+  type TFileTree = TFileTreeNode[];
+
+  // User Types
   interface IUser {
     id: string;
     name: string;
