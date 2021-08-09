@@ -21,7 +21,7 @@ module.exports = withPlugins([bundleAnalyze], {
     domains: ["raw.githubusercontent.com"],
   },
   webpack: (config, { dev, isServer }) => {
-    if (dev && isServer) {
+    if (!dev && isServer) {
       void execa.command("node -r esbuild-register ./bin/generateFileTree.ts", { shell: true });
     }
     return config;
