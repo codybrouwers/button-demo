@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { Page, Grid } from "@geist-ui/react";
+import dynamic from "next/dynamic";
 import { ClapButton, BackgroundScoreChart, WelcomeModal, TotalClicksCount } from "components";
 import { useTrackClicks } from "hooks";
 import { useChartData } from "hooks/useChartData";
@@ -25,10 +26,15 @@ export default function Home() {
 
   return (
     <Page height="1vh" style={{ overflow: "hidden" }} width="100%">
+      <Page.Header>
+        <ViewFilesButton />
+      </Page.Header>
       <Page.Content>
-        <Grid.Container alignItems="center" direction="column" justify="center" width="100%">
-          <ClapButton clickCount={clickCount} incrementClickCount={incrementClickCount} />
-          <TotalClicksCount />
+        <Grid.Container>
+          <Grid.Container alignItems="center" direction="column" justify="center" width="100%">
+            <ClapButton clickCount={clickCount} incrementClickCount={incrementClickCount} />
+            <TotalClicksCount />
+          </Grid.Container>
           <Grid
             style={{ position: "absolute", left: 0, bottom: 0, width: "100%", height: "100%", zIndex: 0 }}
           >
