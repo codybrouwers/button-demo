@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import { faHandPaper, faHandPeace } from "@fortawesome/free-regular-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import styles from "./ClapButton.module.scss";
+import styles from "@components/ClapButton.module.scss";
 
 // == Types ================================================================
 

@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { IS_CLIENT } from "config";
-import { useToggle } from "./useToggle";
+import { IS_CLIENT } from "@config";
+import { useToggle } from "@hooks/useToggle";
 
 // == Types ================================================================
 

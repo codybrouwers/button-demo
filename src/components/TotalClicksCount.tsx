@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
 import { Text, Select, Card, Grid, Badge, Button, Loading } from "@geist-ui/react";
 import { PlusCircle, MinusCircle } from "@geist-ui/react-icons";
-import { IS_DEVELOPMENT } from "config";
-import { useDebounceFunction, useToggle, useWindowFocus } from "hooks";
-import { IReadResponse } from "pages/api/game/read.api";
-import { fetchWithRetry, getPastDate, ITimeFrame } from "utils";
+import { IS_DEVELOPMENT } from "@config";
+import { useDebounceFunction, useToggle, useWindowFocus } from "@hooks";
+import { IReadResponse } from "@pages/api/game/read.api";
+import { fetchWithRetry, getPastDate, ITimeFrame } from "@utils";
 
 // == Types ================================================================
 
@@ -107,4 +107,5 @@ export function TotalClicksCount() {
     </Card>
   );
 }
+
 // == Styles ===============================================================

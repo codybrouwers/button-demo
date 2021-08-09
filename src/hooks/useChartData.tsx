@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import { TChartData } from "components";
-import { useDebounceFunction } from "hooks/useDebounceFunction";
+import { TChartData } from "@components";
+import { useDebounceFunction } from "@hooks/useDebounceFunction";
 
 // == Types ================================================================
 

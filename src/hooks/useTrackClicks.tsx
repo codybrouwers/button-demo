@@ -1,7 +1,7 @@
 import { useRef } from "react";
-import { IS_DEVELOPMENT } from "config";
-import type { TEventsData } from "pages/api/game/write.api";
-import { fetchWithRetry } from "utils";
+import { IS_DEVELOPMENT } from "@config";
+import type { TEventsData } from "@pages/api/game/write.api";
+import { fetchWithRetry } from "@utils";
 import { useDebounceFunction } from "./useDebounceFunction";
 
 // == Types ================================================================

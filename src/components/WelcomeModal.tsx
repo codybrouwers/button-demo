@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { Text, Modal, Input, Grid } from "@geist-ui/react";
 import { nanoid } from "nanoid";
-import { useToggle } from "hooks";
+import { useToggle } from "@hooks";
 
 // == Types ================================================================
 
