@@ -1,0 +1,26 @@
+diff --git a/node_modules/@geist-ui/react/dist/tree/tree-file.d.ts b/node_modules/@geist-ui/react/dist/tree/tree-file.d.ts
+index 53c3b28..34e5064 100644
+--- a/node_modules/@geist-ui/react/dist/tree/tree-file.d.ts
++++ b/node_modules/@geist-ui/react/dist/tree/tree-file.d.ts
+@@ -1,7 +1,7 @@
+ import React from 'react';
+ interface Props {
+     name: string;
+-    extra?: string;
++    extra?: string | JSX.Element;
+     parentPath?: string;
+     level?: number;
+     className?: string;
+diff --git a/node_modules/@geist-ui/react/dist/tree/tree-folder.d.ts b/node_modules/@geist-ui/react/dist/tree/tree-folder.d.ts
+index 360df0d..9a31c1e 100644
+--- a/node_modules/@geist-ui/react/dist/tree/tree-folder.d.ts
++++ b/node_modules/@geist-ui/react/dist/tree/tree-folder.d.ts
+@@ -1,7 +1,7 @@
+ import React from 'react';
+ interface Props {
+     name: string;
+-    extra?: string;
++    extra?: string | JSX.Element;
+     parentPath?: string;
+     level?: number;
+     className?: string;
