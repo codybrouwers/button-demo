@@ -17,12 +17,23 @@ interface IProps {
 
 export function Header({ theme, setTheme }: IProps) {
   return (
-    <Grid alignItems="center" margin={1} style={{ display: "flex", position: "fixed", right: 0, zIndex: 8 }}>
+    <Grid.Container
+      alignItems="center"
+      justify="flex-end"
+      margin={1}
+      style={{
+        position: "fixed",
+        top: 0,
+        right: 0,
+        zIndex: 8,
+      }}
+      width="auto"
+    >
       <Link href="https://github.com/CodyBrouwers/button-demo" style={{ marginRight: 10 }} target="_blank">
         <Github size={20} />
       </Link>
       <ThemeSwitch setTheme={setTheme} theme={theme} />
-    </Grid>
+    </Grid.Container>
   );
 }
 

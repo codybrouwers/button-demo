@@ -1,10 +1,15 @@
 import fs from "fs";
+import path from "path";
 import { promisify } from "util";
 import chalk from "chalk";
+import { config } from "dotenv";
 import fetch from "node-fetch";
 import { getIconForFile, getIconForFolder } from "vscode-icons-js";
+import { generateFileCodeHTML } from "./generateFileCodeHTML";
 
 const writeFile = promisify(fs.writeFile);
+
+config({ path: path.resolve(__dirname, "../.env.local") });
 
 // == Types ================================================================
 
@@ -71,6 +76,7 @@ const FILE_OVERRIDES: Record<string, Partial<TFileTreeNode>> = {
 const EXCLUDED_FILES = ["yarn.lock"];
 
 const iconsSet = new Set<string>();
+let generateCodePromises = [] as Promise<boolean>[];
 
 // == Functions ============================================================
 
@@ -160,6 +166,14 @@ function parseFileTree(fileTree: TGithubFilesList) {
     return Object.values(parsedFileTree)
       .map((fileOrFolder): TFileTreeNode => {
         const overrides = FILE_OVERRIDES[fileOrFolder.name];
+        if (fileOrFolder.type === "file") {
+          generateCodePromises.push(generateFileCodeHTML(fileOrFolder));
+        } else if (fileOrFolder.type === "directory" && fileOrFolder.files?.length) {
+          const promises = Object.values(fileOrFolder.files).map((file) => {
+            return generateFileCodeHTML(file);
+          });
+          generateCodePromises = [...generateCodePromises, ...promises];
+        }
         return {
           ...fileOrFolder,
           icon: overrides?.icon ?? fileOrFolder.icon,
@@ -183,7 +197,12 @@ function parseFileTree(fileTree: TGithubFilesList) {
 
 async function fetchGithubFileTree(): Promise<TGithubFilesList | null> {
   try {
-    const response = await fetch(GITHUB_TREE_URL);
+    const { GITHUB_ACCESS_TOKEN } = process.env;
+    if (!GITHUB_ACCESS_TOKEN) throw new Error("Missing GITHUB_ACCESS_TOKEN ENV");
+
+    const response = await fetch(GITHUB_TREE_URL, {
+      headers: { Authorization: `token ${GITHUB_ACCESS_TOKEN}` },
+    });
     const files = (await response.json()) as IGithubTreeResponse;
     return files.tree;
   } catch (error) {
@@ -201,6 +220,8 @@ async function generateFileTree() {
 
     const files = parseFileTree(githubFileTree);
     await fetchAndSaveIcons();
+    await Promise.all(generateCodePromises);
+
     await writeFile(FILES_LIST_PATH, JSON.stringify(files));
     console.log(chalk.green("✅ Files list successfully saved!"));
   } catch (error) {

@@ -23,3 +23,8 @@ dist
 
 # Vercel config
 .vercel
+
+# Public generated files
+public/files/content/*
+public/files/icons/*
+public/files/list.json

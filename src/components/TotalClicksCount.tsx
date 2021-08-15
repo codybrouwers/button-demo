@@ -59,7 +59,7 @@ export function TotalClicksCount() {
   };
 
   return (
-    <Card style={{ zIndex: 1, opacity: 0.9 }}>
+    <Card style={{ zIndex: 6, opacity: 0.9 }}>
       <Grid.Container alignItems="center" direction="column" justify="center" style={{ zIndex: 1 }}>
         {isLoading || clickCount === null ? (
           <Badge scale={3} style={{ position: "relative" }}>

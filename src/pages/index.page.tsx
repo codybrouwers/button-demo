@@ -32,7 +32,17 @@ export default function Home() {
   };
 
   return (
-    <Page height="1vh" style={{ overflow: "hidden" }} width="100%">
+    <Page
+      height="100%"
+      style={{
+        overflow: "hidden",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        minHeight: "-webkit-fill-available",
+      }}
+      width="100%"
+    >
       <Page.Header>
         <ViewFilesButton />
       </Page.Header>
@@ -40,10 +50,10 @@ export default function Home() {
         <Grid.Container>
           <Grid.Container alignItems="center" direction="column" justify="center" width="100%">
             <ClapButton clickCount={clickCount} incrementClickCount={incrementClickCount} />
-            <TotalClicksCount />
+            {/* <TotalClicksCount /> */}
           </Grid.Container>
           <Grid
-            style={{ position: "absolute", left: 0, bottom: 0, width: "100%", height: "100%", zIndex: 0 }}
+            style={{ position: "absolute", left: 0, bottom: 0, width: "100%", height: "100%", zIndex: 3 }}
           >
             <BackgroundScoreChart data={chartData} />
           </Grid>

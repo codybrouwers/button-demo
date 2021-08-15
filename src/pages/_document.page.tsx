@@ -26,7 +26,9 @@ export default class AppDocument extends Document {
   render() {
     return (
       <Html>
-        <Head />
+        <Head>
+          <meta content="yes" name="apple-mobile-web-app-capable" />
+        </Head>
         <body>
           <script
             // eslint-disable-next-line react/no-danger

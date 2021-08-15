@@ -9,6 +9,7 @@ interface IProps {
   files: TFileTree;
   nestedLevel?: number;
   theme: ITheme;
+  openFile: (file: TFileTreeNode) => void;
 }
 
 // == Constants ============================================================
@@ -17,7 +18,7 @@ interface IProps {
 
 // == Component ============================================================
 
-export const FileTree = memo(({ files, nestedLevel = 1, theme }: IProps) => {
+export const FileTree = memo(({ files, nestedLevel = 1, theme, openFile }: IProps) => {
   return (
     <Tree style={{ display: "flex", flexDirection: "column", flexWrap: "wrap" }}>
       {files.map((file) => {
@@ -28,7 +29,7 @@ export const FileTree = memo(({ files, nestedLevel = 1, theme }: IProps) => {
               key={file.id}
               name={file.name}
             >
-              <FileTree files={file.files} nestedLevel={nestedLevel + 1} theme={theme} />
+              <FileTree files={file.files} nestedLevel={nestedLevel + 1} openFile={openFile} theme={theme} />
             </Tree.Folder>
           );
         }
@@ -37,6 +38,7 @@ export const FileTree = memo(({ files, nestedLevel = 1, theme }: IProps) => {
             extra={<FileIcon file={file} isLoading={false} theme={theme} />}
             key={file.id}
             name={file.name}
+            onClick={() => openFile(file)}
           />
         );
       })}

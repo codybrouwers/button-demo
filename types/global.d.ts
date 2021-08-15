@@ -64,6 +64,16 @@ declare global {
   } & Omit<IFileTreeMapNode, "files">;
   type TFileTree = TFileTreeNode[];
 
+  interface IContentJSON {
+    id: string;
+    name: string;
+    language: string;
+    html: {
+      dark: string;
+      light: string;
+    };
+  }
+
   // User Types
   interface IUser {
     id: string;

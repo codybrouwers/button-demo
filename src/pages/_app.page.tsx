@@ -1,6 +1,7 @@
 import { useEffect } from "react";
 import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AppProps } from "next/app";
+import Head from "next/head";
 import { TTheme, Header } from "components";
 import { useStateWithCallback } from "hooks";
 
@@ -25,11 +26,19 @@ export default function MyApp({ Component, pageProps }: AppProps) {
   }, [setTheme]);
 
   return (
-    <GeistProvider themeType={theme}>
-      <CssBaseline />
-      <Header setTheme={setTheme} theme={theme} />
-      <Component {...pageProps} />
-    </GeistProvider>
+    <>
+      <Head>
+        <meta
+          content="width=device-width, height=device-height, initial-scale=1.0,user-scalable=no, shrink-to-fit=yes"
+          name="viewport"
+        />
+      </Head>
+      <GeistProvider themeType={theme}>
+        <CssBaseline />
+        <Header setTheme={setTheme} theme={theme} />
+        <Component {...pageProps} />
+      </GeistProvider>
+    </>
   );
 }
 

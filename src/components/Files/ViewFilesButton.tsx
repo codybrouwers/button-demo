@@ -30,11 +30,11 @@ const Files = dynamic<Record<string, never>>(
 export function ViewFilesButton() {
   const upSM = useMediaQuery("sm", { match: "up" });
   const [showIcon, setShowIcon] = useState(false);
+  const [showCode, toggleShowCode] = useToggle(false);
 
   useLayoutEffect(() => {
     setShowIcon(upSM);
   }, [upSM]);
-  const [showCode, toggleShowCode] = useToggle(false);
 
   return (
     <Grid margin={1} style={styles.container}>
@@ -44,9 +44,7 @@ export function ViewFilesButton() {
         scale={1 / 2}
         style={{ minWidth: "auto" }}
         width="10%"
-        onClick={() => {
-          toggleShowCode();
-        }}
+        onClick={toggleShowCode}
       >
         {showCode ? "Hide" : "View the code"}
       </Button>
@@ -61,6 +59,9 @@ const styles = {
   container: {
     position: "fixed",
     left: 0,
-    zIndex: 5,
+    zIndex: 9,
+    overflowScrolling: "touch",
+    WebkitOverflowScrolling: "touch",
+    height: "auto", // 90%
   },
 } as const;
