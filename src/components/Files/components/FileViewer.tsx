@@ -21,6 +21,7 @@ export function FileViewer({ file }: { file: TFileTreeNode }) {
     };
     void getCode();
   }, [file.id]);
+  // eslint-disable-next-line react/no-danger
   if (code) return <div dangerouslySetInnerHTML={{ __html: code }} />;
   return <span>Loading</span>;
 }

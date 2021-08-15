@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { Card, Tabs, useMediaQuery } from "@geist-ui/react";
-// import { X } from "@geist-ui/react-icons";
 import { useTheme } from "@hooks";
 import filesList from "@public/files/list.json";
 import { FileTree } from "./FileTree";
@@ -16,25 +15,13 @@ function FileName({ name }: { name: string }) {
   return (
     <div style={{ display: "flex", alignItems: "center" }}>
       <span style={{ textTransform: "none" }}>{name}</span>
-      {/* <X style={{ zIndex: 10 }} onClick={onClose} /> */}
     </div>
   );
 }
 
 function FileTab({ file }: { file: TFileTreeNode }) {
   return (
-    <Tabs.Item
-      key={file.id}
-      label={
-        <FileName
-          name={file.name}
-          // onClose={() => {
-          //   closeFile(file);
-          // }}
-        />
-      }
-      value={file.id}
-    >
+    <Tabs.Item key={file.id} label={<FileName name={file.name} />} value={file.id}>
       <div style={styles.filesContainer}>
         <FileViewer file={file} />
       </div>
@@ -56,20 +43,6 @@ export function Files() {
     });
     setTab(file.id);
   };
-
-  //   const closeFile = (file: TFileTreeNode) => {
-  //     setOpenFiles((previousOpenFiles) => {
-  //       const newFiles = new Set(previousOpenFiles);
-  //       newFiles.delete(file);
-  //       return newFiles;
-  //     });
-  //     setTimeout(() => {
-  //       if (openFiles.size === 0) return;
-  //
-  //       const nextFile = Array.from(openFiles.values()).find(({ id }) => id !== file.id);
-  //       if (nextFile?.id) setTab(nextFile.id);
-  //     }, 15);
-  //   };
 
   const hasOpenFiles = openFiles.size >= 1;
   const openFilesArray = Array.from(openFiles.values());
@@ -93,25 +66,6 @@ export function Files() {
           <Tabs value={tab} width="40rem" onChange={setTab}>
             {openFilesArray.map((file) => {
               return <FileTab file={file} key={file.id} />;
-              //               const c = useTabsContext();
-              //
-              //               return (
-              //                 <Tabs.Item
-              //                   key={file.id}
-              //                   label={
-              //                     <FileName
-              //                       name={file.name}
-              //                       onClose={() => {
-              //                         c.unRegister(file.id);
-              //                         closeFile(file);
-              //                       }}
-              //                     />
-              //                   }
-              //                   value={file.id}
-              //                 >
-              //                   <FileViewer file={file} />
-              //                 </Tabs.Item>
-              //               );
             })}
           </Tabs>
         )}

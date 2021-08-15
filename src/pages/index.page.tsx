@@ -50,7 +50,7 @@ export default function Home() {
         <Grid.Container>
           <Grid.Container alignItems="center" direction="column" justify="center" width="100%">
             <ClapButton clickCount={clickCount} incrementClickCount={incrementClickCount} />
-            {/* <TotalClicksCount /> */}
+            <TotalClicksCount />
           </Grid.Container>
           <Grid
             style={{ position: "absolute", left: 0, bottom: 0, width: "100%", height: "100%", zIndex: 3 }}

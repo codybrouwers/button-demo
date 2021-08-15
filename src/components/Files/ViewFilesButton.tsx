@@ -62,6 +62,6 @@ const styles = {
     zIndex: 9,
     overflowScrolling: "touch",
     WebkitOverflowScrolling: "touch",
-    height: "auto", // 90%
+    height: "auto",
   },
 } as const;
