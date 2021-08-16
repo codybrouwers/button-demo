@@ -46,7 +46,6 @@ export function Files() {
 
   const hasOpenFiles = openFiles.size >= 1;
   const openFilesArray = Array.from(openFiles.values());
-  console.log({ hasOpenFiles });
   return (
     <Card
       style={{
