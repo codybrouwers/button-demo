@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Loading } from "@geist-ui/react";
 
 // == Types ================================================================
 
@@ -23,7 +24,7 @@ export function FileViewer({ file }: { file: TFileTreeNode }) {
   }, [file.id]);
   // eslint-disable-next-line react/no-danger
   if (code) return <div dangerouslySetInnerHTML={{ __html: code }} />;
-  return <span>Loading</span>;
+  return <Loading>Loading</Loading>;
 }
 
 // == Styles ===============================================================
