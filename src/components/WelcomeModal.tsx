@@ -45,7 +45,7 @@ export function WelcomeModal({ setUser }: IProps) {
   };
 
   return (
-    <Modal disableBackdropClick open={isModalVisible}>
+    <Modal disableBackdropClick visible={isModalVisible}>
       <Modal.Title style={{ zoom: 3 }}>✌️</Modal.Title>
       <Modal.Content>
         <Grid.Container justify="center">
