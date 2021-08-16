@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": true,
   "scripts": {
-    "dev": "yarn next dev --port 4003",
+    "dev": "yarn generateFiles && yarn next dev --port 4003",
     "vercel-build": "yarn generateFiles && next build",
     "analyze": "ANALYZE=true NODE_ENV=production yarn next build",
     "start": "next build && next start --port 4003",
