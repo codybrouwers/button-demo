@@ -26,7 +26,7 @@ export const FileTree = memo(({ files, nestedLevel = 1, theme, openFile }: IProp
           return (
             <Tree.Folder
               extra={<FileIcon file={file} isLoading={false} theme={theme} />}
-              key={file.id}
+              key={`${nestedLevel}:${file.id}:${file.name}`}
               name={file.name}
             >
               <FileTree files={file.files} nestedLevel={nestedLevel + 1} openFile={openFile} theme={theme} />
