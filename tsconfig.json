@@ -36,9 +36,11 @@
       "@hooks": ["./hooks"],
       "@utils/*": ["./utils/*"],
       "@utils": ["./utils"],
+      "@tests/*": ["./tests/*"],
+      "@tests": ["./tests"],
       "@pages/*": ["./pages/*"]
     }
   },
   "exclude": ["node_modules", ".next"],
-  "include": ["next-env.d.ts", "next.config.js", "src", "types", "bin"]
+  "include": ["next-env.d.ts", "next.config.js", "jest.config.js", "src", "types", "bin"]
 }

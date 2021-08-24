@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { Page, Grid } from "@geist-ui/react";
 import dynamic from "next/dynamic";
-import { ClapButton, BackgroundScoreChart, WelcomeModal, TotalClicksCount } from "components";
-import { useTrackClicks } from "hooks";
-import { useChartData } from "hooks/useChartData";
+import { ClapButton, BackgroundScoreChart, WelcomeModal, TotalClicksCount } from "@components";
+import { useTrackClicks } from "@hooks";
+import { useChartData } from "@hooks/useChartData";
 
 // == Types ================================================================
 

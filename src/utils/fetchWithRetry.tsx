@@ -1,4 +1,4 @@
-import { waitPromise } from "utils/waitPromise";
+import { waitPromise } from "@utils/waitPromise";
 
 // == Types ================================================================
 

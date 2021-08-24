@@ -1,7 +1,7 @@
 import Redis from "ioredis";
 import { NextApiRequest, NextApiResponse } from "next";
-import { IS_DEVELOPMENT } from "config";
-import { maybeFail } from "utils";
+import { IS_DEVELOPMENT } from "@config";
+import { maybeFail } from "@utils";
 
 // == Types ================================================================
 

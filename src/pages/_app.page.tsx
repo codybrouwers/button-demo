@@ -2,8 +2,8 @@ import { useEffect } from "react";
 import { GeistProvider, CssBaseline } from "@geist-ui/react";
 import { AppProps } from "next/app";
 import Head from "next/head";
-import { TTheme, Header } from "components";
-import { useStateWithCallback } from "hooks";
+import { TTheme, Header } from "@components";
+import { useStateWithCallback } from "@hooks";
 
 // == Types ================================================================
 

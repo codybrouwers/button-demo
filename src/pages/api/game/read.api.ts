@@ -1,6 +1,6 @@
 import Redis from "ioredis";
 import { NextApiRequest, NextApiResponse } from "next";
-import { getPastDate } from "utils";
+import { getPastDate } from "@utils";
 import { ISavedClickRecord } from "./write.api";
 
 // == Types ================================================================

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Text, Select, Card, Grid, Badge, Button, Loading } from "@geist-ui/react";
 import { PlusCircle, MinusCircle } from "@geist-ui/react-icons";
 import { IS_DEVELOPMENT } from "@config";
@@ -15,6 +15,7 @@ const DEBOUNCE_DURATION = IS_DEVELOPMENT ? 500 : 250;
 
 const MINIMUM_DURATION = 0;
 const MAXIMUM_DURATION = 100;
+export const READ_ENDPOINT = "/api/game/read";
 
 // == Functions ============================================================
 
@@ -32,7 +33,7 @@ export function TotalClicksCount() {
     const params = new URLSearchParams({
       timestamp: getPastDate(debouncedTimeFrame).toISOString(),
     });
-    const endpoint = `/api/game/read?${params.toString()}`;
+    const endpoint = `${READ_ENDPOINT}?${params.toString()}`;
     const response = await fetchWithRetry(endpoint, { method: "GET", retryAttempts: 3 });
     const json = (await response.json()) as IReadResponse;
     setClickCount(json.totalClicks.total);
@@ -67,7 +68,9 @@ export function TotalClicksCount() {
             <Loading style={{ position: "absolute", left: 0, top: 0 }} type="success" />
           </Badge>
         ) : (
-          <Badge scale={3}>{clickCount}</Badge>
+          <Badge data-testid="count-badge" scale={3}>
+            {clickCount}
+          </Badge>
         )}
         <Text style={{ textAlign: "center" }}>Clicks from all users in the last:</Text>
         <Badge scale={2}>{timeFrame.duration}</Badge>

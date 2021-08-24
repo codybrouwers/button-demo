@@ -62,6 +62,14 @@ module.exports = {
         "padding-line-between-statements": ["error", { blankLine: "never", prev: "export", next: "export" }],
       },
     },
+    {
+      files: ["*.stories.tsx"],
+      rules: {
+        "import/no-default-export": "off",
+        "react/function-component-definition": "off",
+        "import/prefer-default-export": "error",
+      },
+    },
   ],
   rules: {
     "no-unused-expressions": "off",
