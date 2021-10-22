@@ -10,8 +10,8 @@
 // == Exports ==============================================================
 
 module.exports = {
-  // productionBrowserSourceMaps: true,
-  reactStrictMode: true,
+  productionBrowserSourceMaps: true,
+  // reactStrictMode: true,
   // pageExtensions: ["page.tsx", "api.ts"],
   eslint: {
     dirs: ["src"],
