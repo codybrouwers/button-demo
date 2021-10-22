@@ -1,6 +1,6 @@
 import { useRef } from "react";
 import { IS_DEVELOPMENT } from "@config";
-import type { TEventsData } from "@pages/api/game/write.api";
+import type { TEventsData } from "@pages/api/game/write";
 import { fetchWithRetry } from "@utils";
 import { useDebounceFunction } from "./useDebounceFunction";
 

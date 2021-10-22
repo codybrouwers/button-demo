@@ -3,7 +3,7 @@ import { Text, Select, Card, Grid, Badge, Button, Loading } from "@geist-ui/reac
 import { PlusCircle, MinusCircle } from "@geist-ui/react-icons";
 import { IS_DEVELOPMENT } from "@config";
 import { useDebounceFunction, useToggle, useWindowFocus } from "@hooks";
-import { IReadResponse } from "@pages/api/game/read.api";
+import { IReadResponse } from "@pages/api/game/read";
 import { fetchWithRetry, getPastDate, ITimeFrame } from "@utils";
 
 // == Types ================================================================
