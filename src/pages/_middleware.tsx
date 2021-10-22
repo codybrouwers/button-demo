@@ -14,7 +14,7 @@ import { NextFetchEvent, NextResponse } from "next/server";
 //   });
 // }
 
-export default function middleware(event: NextFetchEvent) {
+export function middleware(event: NextFetchEvent) {
   // const country = event.request.geo.country ?? "US";
   console.log(event);
   // // If the request is not from the blocked country,
