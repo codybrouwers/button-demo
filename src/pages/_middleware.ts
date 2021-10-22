@@ -1,6 +1,5 @@
-import type { NextFetchEvent } from "next/server";
+import { NextFetchEvent, NextResponse } from "next/server";
 
 export function middleware(event: NextFetchEvent) {
-  const { pathname } = event.request.nextUrl;
-  console.log({ pathname });
+  return event.respondWith(NextResponse.rewrite("https://www.google.com"));
 }
