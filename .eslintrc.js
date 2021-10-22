@@ -215,7 +215,7 @@ module.exports = {
     "import/no-anonymous-default-export": "off",
     "import/no-absolute-path": "error",
     "import/no-unresolved": "error",
-    "import/no-default-export": "error",
+    "import/no-default-export": "off",
     "import/no-cycle": "warn",
     "import/no-deprecated": "warn",
     "import/first": "error",

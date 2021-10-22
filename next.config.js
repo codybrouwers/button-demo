@@ -12,7 +12,7 @@ const bundleAnalyze = bundleAnalyzerPlugin({
 module.exports = withPlugins([bundleAnalyze], {
   productionBrowserSourceMaps: true,
   reactStrictMode: true,
-  pageExtensions: ["page.tsx", "api.ts"],
+  // pageExtensions: ["page.tsx", "api.ts"],
   eslint: {
     dirs: ["src"],
   },
