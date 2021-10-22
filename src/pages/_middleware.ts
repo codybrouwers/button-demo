@@ -1,4 +1,4 @@
-import { NextFetchEvent, NextResponse } from "next/server";
+import type { NextFetchEvent } from "next/server";
 
 // const BLOCKED_COUNTRY = "US";
 
@@ -14,13 +14,13 @@ import { NextFetchEvent, NextResponse } from "next/server";
 //   });
 // }
 
-export function middleware(event: NextFetchEvent) {
-  // const country = event.request.geo.country ?? "US";
-  console.log(event);
-  // // If the request is not from the blocked country,
-  // // run the handler function and make a fetch request to New York
-  // if (country !== BLOCKED_COUNTRY) {
-  //   return event.respondWith(handler(event));
-  // }
-  return event.respondWith(NextResponse.rewrite("https://www.google.com"));
+export function middleware(_event: NextFetchEvent) {
+  // // const country = event.request.geo.country ?? "US";
+  // console.log(event);
+  // // // If the request is not from the blocked country,
+  // // // run the handler function and make a fetch request to New York
+  // // if (country !== BLOCKED_COUNTRY) {
+  // //   return event.respondWith(handler(event));
+  // // }
+  // return event.respondWith(NextResponse.rewrite("https://www.google.com"));
 }
